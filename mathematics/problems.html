@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <title>Matematik- och Fysikprovet</title>
+</head>
+<body class="bg-gray-100" style="font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+    
+    <div id="app" class="h-full">
+            <div class="w-64 h-12 top-0 flex grid grid-cols-2 fixed">
+                <a href="../mathematics/menu.html" class="text-center mt-3 hover:text-blue-400 flex-grow">Matematik</a>
+                <a href="../physics/menu.html" class="text-center mt-3 hover:text-blue-400 flex-grow">Fysik</a>
+            </div>
+            <h1 class="text-center mt-16 font-bold text-3xl">
+                {{capitalize}}
+            </h1>
+            <div class="divide-y divide-gray-400">
+                <div class="mx-auto w-5/6 sm:w-1/2 xl:w-1/3 my-8" v-for="url in urls">
+                    <img :src="url" class="object-contain rounded-xl mx-auto mt-8 w-full">
+                    <div v-for="answer_url in answer_urls" v-if="answer_url.url.split('/')[answer_url.url.split('/').length - 1] == url.split('/')[url.split('/').length - 1]">
+                        <a href="javascript:void(0)" @click="toggleVisibilityAnswer(url)"><p class="mt-4 ml-2 hover:text-blue-400" v-if="answer_url.hidden">Visa svar</p></a>
+                        <a href="javascript:void(0)" @click="toggleVisibilityAnswer(url)"><p class="mt-4 ml-2 hover:text-blue-400" v-if="!answer_url.hidden">Dölj svar</p></a>
+                        <img :src="answer_url.url" class="object-contain rounded-xl mt-8" v-if="!answer_url.hidden">
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        "el": "#app",
+        data: {
+            subject: "mathematics",
+            question_type: "",
+            urls: [],
+            answer_urls: []
+        },
+        methods: {
+            getQueryVariable (variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("?");
+
+                for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if (pair[0] == variable) {
+                        console.log(pair[1])
+                        return decodeURI(pair[1]);
+                    }
+                } 
+                console.log('Query Variable ' + variable + ' not found');
+            },
+            getImagesURLS () {
+                var self = this;
+                $.ajax({
+                    url : "../images/" + self.subject + "/" + self.question_type,
+                    success: function (data) {
+                        $(data).find("a").attr("href", function (i, val) {
+                            if( val.match(/\.(jpe?g|PNG|gif)$/) ) { 
+                                console.log(val)
+                                self.urls.push(val)
+                            } 
+                        });
+                    }
+                });
+            },
+            getAnswerURLS() {
+                var self = this;
+                $.ajax({
+                    url : "../images/" + self.subject + "/" + self.question_type + "/answers",
+                    success: function (data) {
+                        $(data).find("a").attr("href", function (i, val) {
+                            if( val.match(/\.(jpe?g|PNG|gif)$/) ) { 
+                                console.log(val)
+                                self.answer_urls.push({url: val, hidden: true})
+                            } 
+                        });
+                    }
+                });
+                console.log("ANSWER", self.answer_urls)
+            },
+            test () {
+                console.log(this.answer_urls)
+            },
+            toggleVisibilityAnswer(url) {
+                let answer_url = url.split("/")
+                answer_url.splice(4, 0, "answers")
+                answer_url = answer_url.join("/")
+                console.log(answer_url)
+                answer_url_index = this.answer_urls.findIndex(x => x.url == answer_url)
+                if (this.answer_urls[answer_url_index].hidden){
+                    this.answer_urls[answer_url_index].hidden = false
+                } else {
+                    this.answer_urls[answer_url_index].hidden = true
+                }
+            }
+        },
+        mounted () {
+            this.question_type = this.getQueryVariable("question_type")
+            this.getImagesURLS()
+            this.getAnswerURLS()
+            
+        },
+        computed: {
+            capitalize: function () {
+                try {
+                    return this.question_type[0].toUpperCase() + this.question_type.substring(1)
+                } catch(error){
+                    console.log(error)
+                }
+            }
+        }
+    }
+    )
+</script>
+</html>

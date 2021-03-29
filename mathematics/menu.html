@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <title>Matematik- och Fysikprovet</title>
+</head>
+<body class="bg-gray-100" style="font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+    
+    <div id="app" class="h-full">
+            <div class="w-64 h-12 top-0 flex grid grid-cols-2">
+                <a href="#" class="text-center mt-3 hover:text-blue-400 flex-grow">Matematik</a>
+                <a href="../physics/menu.html" class="text-center mt-3 hover:text-blue-400 flex-grow">Fysik</a>
+            </div>
+            <div class="w-1/2 h-96 bg-gray-300 mx-auto grid grid-cols-2 rounded-xl">
+                <a href="problems.html?question_type=absolutbeloppsekvationer" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Absolutbeloppsekvationer</a>
+                <a href="problems.html?question_type=andragradsekvationer" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400"><p class="">Andragradsekvationer</p></a>
+                <a href="problems.html?question_type=antal lösningar" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Antal lösningar</a>
+                <a href="problems.html?question_type=beräkningar" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Beräkningar</a>
+                <a href="problems.html?question_type=derivator" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Derivator</a>
+                <a href="problems.html?question_type=förenkling" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Förenkling</a>
+                <a href="problems.html?question_type=förhållande mellan variabler" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Förhållande mellan variabler</a>
+                <a href="problems.html?question_type=insättning i formler" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Insättning i formler</a>
+                <a href="problems.html?question_type=integraler" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Integraler</a>
+                <a href="problems.html?question_type=komplexa tal" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Komplexa tal</a>
+                <a href="problems.html?question_type=logaritmekvationer" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Logaritmekvationer</a>
+                <a href="problems.html?question_type=olikheter" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Olikheter</a>
+                <a href="problems.html?question_type=operationer" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Operationer</a>
+                <a href="problems.html?question_type=potensekvationer" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Potensekvationer</a>
+                <a href="problems.html?question_type=procentuell förändring" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Procentuell förändring</a>
+                <a href="problems.html?question_type=rotekvationer" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Rotekvationer</a>
+                <a href="problems.html?question_type=talteori" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Talteori</a>
+                <a href="problems.html?question_type=trigonometri" class="text-center mt-8 h-12 text-2xl truncate hover:text-blue-400">Trigonometri</a>
+                <a href="problems.html?question_type=övrigt" class="text-center mt-8 mb-4 h-12 text-2xl truncate hover:text-blue-400">Övrigt</a>
+            </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        "el": "#app"
+        }
+    )
+</script>
+</html>
