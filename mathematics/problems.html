@@ -74,7 +74,7 @@
             getAnswerURLS() {
                 var self = this;
                 $.ajax({
-                    url : "../images/" + self.subject + "/" + self.question_type + "/answers",
+                    url : "../images/" + self.subject + "/Absolutbeloppsekvationer/answers",
                     success: function (data) {
                         $(data).find("a").attr("href", function (i, val) {
                             if( val.match(/\.(jpe?g|PNG|gif)$/) ) { 
